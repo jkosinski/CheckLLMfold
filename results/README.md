@@ -73,7 +73,8 @@ output is not included here. To rescore it, save his final answer as `runs/serge
 
 ### Strand labels in the contact runs
 
-Fable's visible text in the contact runs never names a protein, a family or a PDB entry. Its code (tool calls in
+Sergey's prompt tells Fable not to reason about or describe the protein's family, identity or overall fold, and its
+visible text in the contact runs never names a protein, a family or a PDB entry. Its code (tool calls in
 `runs/jobs/*/transcript.jsonl`) does show fold knowledge on two of the famous proteins:
 
 - Tenascin (`job_3080fa44`): the seven strands are labelled A, B, C, C', E, F, G, with no D. These are the standard FN3
@@ -131,6 +132,36 @@ Reading:
   without a known structure of the family.
 - In the next-residue test, the first-residue gap (real minus shuffled) does not follow family recognition in a consistent
   way: pre-cutoff 0.28 when the family was named and 0.20 when not, post-cutoff 0.08 and 0.26 (14-42 proteins per group).
+
+## One reply, no tools
+
+`../scripts/oneshot.py` asks for the same seven proteins in a single reply: no tools, no folding code, no rounds,
+effort low, and the prompt asks for the answer only, written straight away. Two questions, 5 calls each per protein: the
+ranked contact list (same number of pairs as in the protocol, |i-j| >= 6), or C-alpha coordinates for all residues.
+Thinking cannot be switched off for Fable 5.2 (the API rejects `thinking: disabled`, and Claude Code's
+`CLAUDE_CODE_DISABLE_THINKING` had no effect), so thinking tokens are recorded per call: median about 1,400 for contacts
+and 1,000 for coordinates, 0 in 10 of the 70 calls. The protocol runs used 18,000-64,000 output tokens and 10-26 tool
+calls each. Scores: `oneshot/summary.tsv` (`../scripts/oneshot_score.py`).
+
+Top-L precision at |i-j| >= 24, and TM-score:
+
+| Target | Protocol: contacts | One reply: contacts | One reply: coordinates, contacts | One reply: coordinates, TM | Protocol: TM |
+|---|---|---|---|---|---|
+| Ubiquitin | 0.45-0.68 | 0.58-0.74 | 0.04-0.24 | 0.25-0.36 | 0.44-0.52 |
+| Cytochrome b562 | 0.18 | 0.08-0.13 | 0.04-0.21 | 0.38-0.56 | 0.42 |
+| DUF2489, all-α | 0.04-0.06 | 0.05-0.07 | 0.00-0.03 | 0.22-0.30 | 0.21-0.22 |
+| Tenascin FN3 | 0.47 | 0.44-0.52 | 0.02-0.53 | 0.23-0.43 | 0.33 |
+| DUF2958, all-β | 0.04-0.07 | 0.02-0.13 | 0.01-0.07 | 0.16-0.22 | 0.20 |
+| Thioredoxin | 0.49 | 0.51-0.59 | 0.39-0.47 | 0.38-0.48 | 0.47 |
+| DUF4288, α/β | 0.07-0.33 | 0.00-0.04, one 0.31 | 0.01-0.22 | 0.23-0.27 | 0.24-0.30 |
+
+"Coordinates, contacts": pairs ranked by C-alpha distance in the written model. TM for the written coordinates is for
+the model as written; for the protocol it is the better mirror image of the `fold()` model.
+
+- A single reply gives about the same long-range contact precision as the protocol with the folding code and 3-6 rounds,
+  on the famous proteins and on the DUF proteins. One ubiquitin reply with no thinking tokens at all scored 0.58.
+- Coordinates written directly are poor in shape (TM 0.16-0.56). For thioredoxin, and in 3 of 5 tenascin replies, they
+  still carry the right long-range contacts (0.39-0.53). For the DUF proteins they carry almost none.
 
 ## Confidence of the AFDB references
 
