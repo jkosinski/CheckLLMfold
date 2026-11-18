@@ -1,0 +1,58 @@
+{
+ "ubiquitin_1UBQ": {
+  "job": "job_d4ab2c53",
+  "rep": "2",
+  "n_runs": 3,
+  "TM": 0.524,
+  "hand": "as built",
+  "L": 76
+ },
+ "cytb562_256B": {
+  "job": "job_6a01593b",
+  "rep": "1",
+  "n_runs": 1,
+  "TM": 0.416,
+  "hand": "mirrored",
+  "L": 106
+ },
+ "fn3_tenascin_1TEN": {
+  "job": "job_3080fa44",
+  "rep": "1",
+  "n_runs": 1,
+  "TM": 0.325,
+  "hand": "as built",
+  "L": 89
+ },
+ "thioredoxin_2TRX": {
+  "job": "job_47423b69",
+  "rep": "1",
+  "n_runs": 1,
+  "TM": 0.471,
+  "hand": "mirrored",
+  "L": 108
+ },
+ "A0A916UKZ0": {
+  "job": "job_06521e6b",
+  "rep": "3",
+  "n_runs": 3,
+  "TM": 0.219,
+  "hand": "mirrored",
+  "L": 108
+ },
+ "A0A8J2YCU1": {
+  "job": "job_b93bc75f",
+  "rep": "2",
+  "n_runs": 2,
+  "TM": 0.204,
+  "hand": "as built",
+  "L": 89
+ },
+ "A0A5D0P002": {
+  "job": "job_05154e66",
+  "rep": "3",
+  "n_runs": 3,
+  "TM": 0.305,
+  "hand": "as built",
+  "L": 107
+ }
+}

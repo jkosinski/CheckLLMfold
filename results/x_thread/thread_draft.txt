@@ -1,0 +1,15 @@
+There are reports that Claude Fable 5.2 can predict protein structures. I asked Opus 5.5 to check it. All structure predictions below are made by Fable 5.2. Opus 5.5 set up and analysed the tests and wrote the posts marked [AI-written], not much revised by me.
+---
+[AI-written] Control first: @sokrypton's prompt (predict contacts from sequence, build a 3D model, revise) on ubiquitin, 3 runs with Fable 5.2, no web access. It reproduces: 62-78% of the top-L contacts are correct and the model has the ubiquitin fold (TM-score up to 0.52).
+---
+[AI-written] Ubiquitin is in the PDB and in papers many times. So I picked 3 bacterial proteins with confident AlphaFold models and no PDB relative (no sequence hit, no Pfam family structure, no Foldseek hit), plus 3 well-studied PDB proteins of matching size and class.
+---
+[AI-written] All-α, about 107 aa: cytochrome b562 vs DUF2489. Long-range contact precision 0.18 vs 0.04-0.06 (chance about 0.02). For DUF2489 the predicted contacts give β-hairpins where the protein has helices.
+---
+[AI-written] All-β, 89 aa: tenascin FN3 domain vs DUF2958. Long-range precision 0.47 vs 0.04-0.07. On DUF2958 the local hairpins are partly right, but the model has helices where the protein has strands.
+---
+[AI-written] α/β, about 107 aa: thioredoxin vs DUF4288. Long-range precision 0.49 vs 0.07-0.33. On DUF4288 the long N-terminal hairpin and the helix after it are right, and the rest of the fold is wrong (TM-score 0.30).
+---
+[AI-written] My reading: Fable 5.2 does well on proteins it has likely seen many times, and much less well on proteins with no relative in the PDB. Long-range contacts on the new proteins are close to chance.
+---
+[AI-written] Caveats: small test (3 + 3 proteins, one run per well-studied protein), AlphaFold models as references for the new proteins, and well-studied proteins may also be easier. Happy to share the prompts, code and data.

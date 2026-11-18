@@ -1,0 +1,2 @@
+{"sandbox": {"enabled": true, "autoAllowBashIfSandboxed": true, "allowUnsandboxedCommands": false, "network": {"allowedDomains": []}},
+ "claudeMdExcludes": ["/Users/USER/.claude/CLAUDE.md", "**/CLAUDE.md"]}

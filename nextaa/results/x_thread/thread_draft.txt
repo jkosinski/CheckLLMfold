@@ -1,0 +1,17 @@
+@TuXinming and Leo Chen report that Claude Fable 5.2 predicts the next amino acids of obscure bacterial proteins. I suspected it recalls database sequences and asked Opus 5.5 to check. All predictions are by Fable 5.2. Opus 5.5 wrote the [AI-written] posts, not much revised.
+---
+[AI-written] Well-known proteins first: 12 of them (ubiquitin, GFP, p53, KRAS...), 5 cut points each. Fable 5.2 gave the right next residue at all 60, and the exact next 10 residues at 58. On the same residues shuffled: 10%.
+---
+[AI-written] A clean test needs sequences Fable cannot have seen. Its training data ends in June 2026, and RefSeq adds many new protein sequences every month. Some new records carry old sequences, so I checked each exact sequence in UniParc.
+---
+[AI-written] Tu and Chen tested 56 such proteins and published all replies. Split by close relatives in UniProt (50%+ identity), Fable's gap falls from 54 to 36 points as relatives disappear, and to 22 on new proteins. The protein language model ProGen3 follows the same pattern.
+---
+[AI-written] At the same distance to known relatives, old proteins score higher than new ones: 36 vs 22 points. Protein language models, which likely saw the old proteins in training, drop as much or more: ProGen3 24 to 12, ProtGPT3 19 to 7. My own Fable runs: 25 to 15.
+---
+[AI-written] A sharper test: 48 new proteins, each 70-95% identical to an older UniProt protein. Where the new protein changed a residue and Fable knows the old one, it gives the old residue 59% of the time and the new one 7%. Where nothing changed, it is right 96%.
+---
+[AI-written] The residue it gives is also what the 10 next-closest old proteins have, at the same rate (58%), so it follows the protein family. And Fable is as accurate on the new proteins (26%) as on the old ones (27%).
+---
+[AI-written] My reading: not conclusive about memorization, and no more of it than in protein language models. Here Fable 5.2 behaves like one trained on UniProt: best near known sequences, worse far from them, with higher scores than the open models tested.
+---
+[AI-written] Caveats: I ran Fable through headless Claude Code (no API key), which scores about 10 points below their API runs. The position test is small, and I did not run a protein language model on it. Their data: github.com/XinmingTu/LLM-bioseq-probe. Happy to share mine.
