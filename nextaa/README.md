@@ -59,6 +59,9 @@ so it was replaced by the UniProtKB version (`results/div_fable52.jsonl` and `re
     subfamily, not one sequence.
   - First-residue accuracy is about the same on the new proteins (26%) and on their old relatives (27%).
 
+- Asked directly what a sequence is (`../results/README.md`, recognition probe), Fable names the Pfam family of 62-75% of
+  these proteins, as often after its training cutoff as before, and gives no accession for any of them.
+
 Reading: Fable 5.2 behaves like a model trained on UniProt, best near known sequences and worse far from them, with
 higher scores than the open protein language models tested. This does not separate memorization from what protein
 language models do.

@@ -69,6 +69,69 @@ output is not included here. To rescore it, save his final answer as `runs/serge
   all-α protein (precision 0.78-0.87), and β-hairpins joined by short turns. Secondary structure is sometimes misread
   (a helix called two strands in DUF2489; helices predicted in the all-β DUF2958).
 
+## What Fable knows about the sequences
+
+### Strand labels in the contact runs
+
+Fable's visible text in the contact runs never names a protein, a family or a PDB entry. Its code (tool calls in
+`runs/jobs/*/transcript.jsonl`) does show fold knowledge on two of the famous proteins:
+
+- Tenascin (`job_3080fa44`): the seven strands are labelled A, B, C, C', E, F, G, with no D. These are the standard FN3
+  strand names. The pairings it sets, A-B, B-E, C-C', C-F and F-G, are the two FN3 sheets: all five are at 4.1-4.3 A
+  minimum CA-CA distance in 1TEN, and the other strand combinations at 6.2 A or more. The write-up says the strands were
+  read "from the alternation of hydrophobic residues".
+- Thioredoxin (`job_47423b69`): b1-b3 and b2-b3 parallel, b2-b4 antiparallel, b4-b5 hairpin. This is the thioredoxin sheet
+  (4.3-4.6 A in 2TRX; the alternatives 8.9 A or more). The write-up presents the secondary structure as read from the
+  sequence.
+- The three AFDB proteins get plain sequential labels (b1, b2, a1, ...; A-E with D included).
+
+The thinking blocks cannot be used for this: in 7 of the 14 runs their text is empty, in the other 7 it is a one- or
+two-sentence summary of a round.
+
+### Recognition probe
+
+Fable 5.2 got each full sequence, with no tools, and was asked for the protein name, accession, organism, Pfam family,
+fold and PDB IDs (`../scripts/recognize.py`, same headless setup as `nextaa/scripts/probe.py`). Questions are in
+`../data/recognition/`, replies and `summary.tsv` in `recognition/`, scoring in `../scripts/recognition_score.py`.
+
+Contact-test proteins, 3 questions at effort low and 3 at effort high:
+
+| Protein | Accession | Pfam | Organism | PDB |
+|---|---|---|---|---|
+| Ubiquitin, cyt b562, tenascin FN3, thioredoxin | 6/6 each | 6/6 each | 6/6 each | 6/6 each |
+| A0A916UKZ0 (DUF2489) | 0/6 | 2/6 | 0/6 | - |
+| A0A8J2YCU1 (DUF2958) | 0/6 | 6/6 | 0/6 | - |
+| A0A5D0P002 (DUF4288) | 0/6 | 6/6 | 0/6 | - |
+
+For the famous proteins the PDB IDs include the reference entry used here (1UBQ, 256B, 1TEN, 2TRX) in all 24 answers. For
+the DUF proteins Fable says the family is assigned "from recalled family motifs, not a database search".
+
+Proteins from the next-residue test, effort low, one question each (`nextaa/README.md`):
+
+| Set | Proteins | Accession right | Pfam family right (chance) |
+|---|---|---|---|
+| Well-known (ubiquitin, GFP, p53, ...) | 12 | 12 (protein named in all) | - |
+| Pre-cutoff, UniRef50 cluster > 50 | 40 | 0 | 75% (3%) |
+| Pre-cutoff, no UniRef50 relative | 40 | 0 | 62% (2%) |
+| Post-cutoff (Tu & Chen's D set) | 56 | 0 | 75% (4%) |
+
+Chance: the same score with the answers shuffled among the proteins of a set. Pfam counts as right if the true family
+(accession or name, e.g. DUF222) is among the families given. Fable gave no accession for any of these proteins and
+never the right species; the genus was right only in guesses, mostly from composition ("a high-GC actinobacterium such
+as Streptomyces"), in 18%, 10% and 2% of the three sets.
+
+Reading:
+- Fable identifies the famous proteins down to the UniProt and PDB entry, so their contact maps can draw on known
+  structures.
+- For obscure proteins it names the Pfam family about as often for proteins first public after its training cutoff as for
+  older ones, and never gives an accession. This looks like family-level knowledge, similar to a profile search, and not
+  recall of individual sequences.
+- It named the family of two of the three AFDB proteins every time, yet contact precision on them stayed near chance
+  (DUF2958) or low (DUF4288). These families have no structure in the PDB. Naming the family did not give good contacts
+  without a known structure of the family.
+- In the next-residue test, the first-residue gap (real minus shuffled) does not follow family recognition in a consistent
+  way: pre-cutoff 0.28 when the family was named and 0.20 when not, post-cutoff 0.08 and 0.26 (14-42 proteins per group).
+
 ## Confidence of the AFDB references
 
 | Target | Mean pLDDT | Residues >= 90 | Residues < 70 | Mean PAE | PAE over native contacts \|i-j\| >= 24 |
@@ -99,5 +162,5 @@ long-range precision is shown, as in the contact maps.
 - The unknown proteins are references from AlphaFold, not experiments, though with very high confidence.
 - A famous protein may be easier for reasons other than familiarity. The class-matched pairs reduce this but do not remove
   it.
-- Thinking is not returned by the API (`display` omitted), so we cannot see whether Fable recognised the famous proteins.
-  Its visible text never names them.
+- Fable's reasoning is not visible: thinking blocks come back empty or as short summaries. See "What Fable knows about the
+  sequences" for what its code and a direct question show.

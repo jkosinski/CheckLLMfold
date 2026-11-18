@@ -1,0 +1,19 @@
+set	group	effort	n	accession	pfam	pfam_chance	genus	genus_chance	pdb	name_unknown	acc_unknown	pfam_unknown	organism_unknown	example_name
+contact7	1TEN	high	3	3	3		3		3	0				Tenascin-C (TN-C), third fibronectin type III domain (TNfn3)
+contact7	1TEN	low	3	3	3		3		3	0				Tenascin-C, third fibronectin type III domain (TNfn3)
+contact7	1UBQ	high	3	3	3		3		3	0				Ubiquitin (76-residue mature monomer, as encoded by polyubiquitin-B/C 
+contact7	1UBQ	low	3	3	3		3		3	0				Ubiquitin (76-residue mature form; sequence identical to human ubiquit
+contact7	256B	high	3	3	3		3		3	0				Soluble cytochrome b562 (cytochrome b-562), mature chain without signa
+contact7	256B	low	3	3	3		3		3	0				Soluble cytochrome b562 (mature form; appears to be the BRIL-type vari
+contact7	2TRX	high	3	3	3		3		3	0				Thioredoxin 1 (TrxA), mature form without the initiator Met
+contact7	2TRX	low	3	3	3		3		3	0				Thioredoxin 1 (TrxA)
+contact7	A0A5D0P002	high	3	0	3		0			0				DUF4288 domain-containing protein (uncharacterized/hypothetical protei
+contact7	A0A5D0P002	low	3	0	3		0			0				uncharacterized protein, probably a DUF4288 domain-containing protein 
+contact7	A0A8J2YCU1	high	3	0	3		0			0				DUF2958 domain-containing protein (uncharacterized; assigned from reca
+contact7	A0A8J2YCU1	low	3	0	3		0			0				uncharacterized DUF2958 family protein (tentative, based on recalled m
+contact7	A0A916UKZ0	high	3	0	1		0			1				uncharacterized protein, possibly DUF2489 family (tentative, from reca
+contact7	A0A916UKZ0	low	3	0	1		0			2				unknown (probably an uncharacterized bacterial protein; not identified
+nextaa	famous	low	12	1.0							0.083	0.0	0.0	
+nextaa	pre_big	low	40	0.0	0.75	0.026	0.175	0.022			1.0	0.25	0.95	
+nextaa	pre_single	low	40	0.0	0.625	0.019	0.1	0.006			1.0	0.4	1.0	
+nextaa	post_D	low	56	0.0	0.75	0.04	0.018	0.001			1.0	0.25	1.0	

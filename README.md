@@ -10,7 +10,9 @@ Two tests of whether Claude Fable 5.2's skill with protein sequences comes from 
    ([shared chat](https://claude.ai/share/068377d7-bace-48bf-8102-c0f144da3887)) on ubiquitin as a control, on three
    well-studied PDB proteins, and on three bacterial proteins with confident AlphaFold DB models and no relative in the
    PDB. Long-range contact precision was 0.18-0.49 on the well-studied proteins and 0.04-0.33 on the proteins with no
-   PDB relative, close to chance for two of the three. Details: [results/README.md](results/README.md).
+   PDB relative, close to chance for two of the three. Asked directly, Fable names the four well-studied proteins down to
+   the UniProt and PDB entry, and the Pfam family of two of the three others. Details:
+   [results/README.md](results/README.md).
    X thread: https://x.com/jankosinski/status/2122997527192416440
 2. **Next amino acid** ([nextaa/](nextaa/)). Xinming Tu and Leo Chen's next-residue probe, on well-known proteins and on
    proteins first public after Fable's training cutoff. Fable 5.2 behaves like a model trained on UniProt: best near
@@ -32,6 +34,9 @@ Two tests of whether Claude Fable 5.2's skill with protein sequences comes from 
   (`model_final.pdb`) and the files Fable wrote (`work/`). `runs/jobs.tsv` maps job ids to targets.
 - `data/`: reference structures (PDB 1UBQ, 256B, 1TEN, 2TRX; AlphaFold DB models with PAE), target lists, and the target
   selection (`data/candidates/`, with Foldseek results for the three chosen proteins).
+- Recognition probe (Fable asked directly what each sequence is, for the contact-test proteins and a sample of the
+  next-residue proteins): `scripts/recognize.py`, `scripts/recognition_questions.py`, `scripts/recognition_score.py`,
+  questions in `data/recognition/`, replies in `results/recognition/`.
 - `results/`: `summary.tsv`, figures, the write-up, and the images and text written for an X thread.
 
 Edits to the raw outputs: in each `transcript.jsonl` the first line (session start) is cut down to model, tools and
